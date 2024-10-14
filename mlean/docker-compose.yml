@@ -1,0 +1,54 @@
+﻿networks:
+  lavalink-network:
+    driver: bridge
+
+services:
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4
+    container_name: lavalink
+    restart: unless-stopped
+    environment:
+      - _JAVA_OPTIONS=-Xmx6G        # Set Java options
+      - SERVER_PORT=2333            # Lavalink server port
+      - SERVER_ADDRESS=lavalink     # Lavalink server address
+      - LAVALINK_SERVER_PASSWORD=youshallnotpass  # Server password
+    volumes:
+      - ./Lavalink/application.yml:/opt/Lavalink/application.yml:ro  # Mount config
+    networks:
+      - lavalink-network
+    expose:
+      - 2333  # Document exposed port
+    ports:
+      - "2333:2333"  # Expose port for external access
+
+
+  mlean:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on: [lavalink]
+    container_name: mlean
+    networks:
+      - lavalink-network
+    devices:
+      - "/dev/snd"
+    environment:
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+      - LAVALINK_SERVER_PASSWORD=youshallnotpass
+      - SERVER_ADDRESS=http://lavalink
+      - LAVALINK_SERVER_PORT=2333
+      - BOT_PREFIX=$
+    privileged: true
+    volumes:
+      - /run/user/1000/pulse:/run/user/1000/pulse
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          memory: 2G
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+    command: ["dotnet", "mlean.dll"]

@@ -1,0 +1,12 @@
+**/Constants.cs
+**/node_modules
+mlean/bin
+mlean/obj
+/mlean/bin
+.idea
+mlean/bin
+mlean.sln.DotSettings.user
+**/log/**
+**/logs/**
+**.log
+**/plugins/*.jar

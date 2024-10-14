@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Discord.Net" Version="3.16.0" />
+      <PackageReference Include="Lavalink4NET.Abstractions" Version="4.0.26-preview.4" />
+      <PackageReference Include="Lavalink4NET.Discord.NET" Version="4.0.26-preview.4" />
+      <PackageReference Include="Lavalink4NET.InactivityTracking" Version="4.0.26-preview.4" />
+      <PackageReference Include="Lavalink4NET.Integrations.SponsorBlock" Version="4.0.26-preview.4" />
+      <PackageReference Include="Lavalink4NET.Protocol" Version="4.0.26-preview.4" />
+      <PackageReference Include="Lavalink4NET.Rest" Version="4.0.26-preview.4" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Victoria" Version="7.0.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="lib\opus.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+</Project>
