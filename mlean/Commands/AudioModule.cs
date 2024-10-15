@@ -106,6 +106,124 @@ public class AudioModule : ModuleBase<SocketCommandContext>
             await ReplyAsync(embed: StatusEmbed("🛑 No more tracks in the queue. Stopped playback."));
         }
     }
+    
+    [Command("set-eq", RunMode = RunMode.Async)]
+public async Task SetEqualizerBandsAsync(params string[] bandGainPairs)
+{
+    var player = await GetPlayerAsync();
+    if (player == null)
+    {
+        await ReplyAsync(embed: ErrorEmbed("Player not found."));
+        return;
+    }
+
+    var builder = Equalizer.CreateBuilder(player.Filters.Equalizer?.Equalizer ?? Equalizer.Default);
+
+    foreach (var pair in bandGainPairs)
+    {
+        var split = pair.Split(':');
+        if (split.Length != 2 || 
+            !int.TryParse(split[0], out int band) || 
+            !float.TryParse(split[1], out float gain))
+        {
+            await ReplyAsync($"Invalid format: `{pair}`. Use `band:gain` format.");
+            return;
+        }
+
+        if (band < 0 || band >= Equalizer.Bands)
+        {
+            await ReplyAsync($"Band index must be between 0 and {Equalizer.Bands - 1}.");
+            return;
+        }
+
+        if (gain < -0.25f || gain > 1.0f)
+        {
+            await ReplyAsync("Gain must be between -0.25 and 1.0.");
+            return;
+        }
+
+        builder[band] = gain;
+    }
+
+    player.Filters.Equalizer = new EqualizerFilterOptions(builder.Build());
+    await player.Filters.CommitAsync();
+    await ReplyAsync("Equalizer updated successfully.");
+}
+
+[Command("set-eq-all", RunMode = RunMode.Async)]
+public async Task SetEqualizerAllBandsAsync(float gain)
+{
+    if (gain < -0.25f || gain > 1.0f)
+    {
+        await ReplyAsync("Gain must be between -0.25 and 1.0.");
+        return;
+    }
+
+    var player = await GetPlayerAsync();
+    if (player == null)
+    {
+        await ReplyAsync(embed: ErrorEmbed("Player not found."));
+        return;
+    }
+
+    var builder = Equalizer.CreateBuilder(player.Filters.Equalizer?.Equalizer ?? Equalizer.Default);
+
+    for (int i = 0; i < Equalizer.Bands; i++)
+    {
+        builder[i] = gain;
+    }
+
+    player.Filters.Equalizer = new EqualizerFilterOptions(builder.Build());
+    await player.Filters.CommitAsync();
+    await ReplyAsync($"All bands set to {gain}.");
+}
+
+[Command("show-eq", RunMode = RunMode.Async)]
+public async Task ShowEqualizerAsync()
+{
+    var player = await GetPlayerAsync();
+    if (player == null || player.Filters.Equalizer == null)
+    {
+        await ReplyAsync(embed: ErrorEmbed("No equalizer settings found."));
+        return;
+    }
+
+    var currentEq = player.Filters.Equalizer.Equalizer;
+    var embed = new EmbedBuilder()
+        .WithTitle("🎛️ Equalizer Settings")
+        .WithColor(Color.Blue)
+        .WithCurrentTimestamp();
+
+    for (int i = 0; i <= 14; i++)
+    {
+        embed.AddField($"Band {i}", $"Gain: {currentEq[i]}", inline: true);
+    }
+
+    await ReplyAsync(embed: embed.Build());
+}
+
+[Command("reset-eq", RunMode = RunMode.Async)]
+public async Task ResetEqualizerAsync()
+{
+    var player = await GetPlayerAsync();
+    if (player == null)
+    {
+        await ReplyAsync(embed: ErrorEmbed("Player not found."));
+        return;
+    }
+
+    var builder = Equalizer.CreateBuilder();
+
+    for (int i = 0; i < Equalizer.Bands; i++)
+    {
+        builder[i] = 0.0f;
+    }
+
+    player.Filters.Equalizer = new EqualizerFilterOptions(builder.Build());
+    await player.Filters.CommitAsync();
+    await ReplyAsync("Equalizer has been reset to default.");
+}
+
 
     [Command("screw-it", RunMode = RunMode.Async)]
     public async Task ScrewItAsync()
