@@ -23,7 +23,8 @@ namespace mlean.Commands
                     $"`{Prefix}pause` - Pauses the current song\n" +
                     $"`{Prefix}resume` - Resumes the song\n" +
                     $"`{Prefix}stop` - Stops the music and clears the queue\n" +
-                    $"`{Prefix}skip` - Skips the current track")
+                    $"`{Prefix}skip` - Skips the current track\n" +
+                    $"`{Prefix}volume <level>` - Sets the volume (0-100%)")
                 .AddField("🎛️ **Filter Commands**",
                     $"`{Prefix}show-filters` - Displays current filter status\n" +
                     $"`{Prefix}screw-it` - Toggles Screw-It mode\n" +

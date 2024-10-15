@@ -10,9 +10,9 @@ namespace mlean.Commands.Eq
         : CommandBase(audioService, discordClient)
     {
         [Command("volume", RunMode = RunMode.Async)]
-        public async Task SetVolumeAsync(int volume)
+        public async Task SetVolumeAsync(float volumePercent)
         {
-            if (volume < 0 || volume > 100)
+            if (volumePercent < 0 || volumePercent > 100)
             {
                 await ReplyAsync(embed: Utilities.ErrorEmbed("Please provide a volume level between 0 and 100."));
                 return;
@@ -24,11 +24,11 @@ namespace mlean.Commands.Eq
                 await ReplyAsync(embed: Utilities.ErrorEmbed("Player not found."));
                 return;
             }
+            
+            await player.SetVolumeAsync(volumePercent / 1000);
 
-            // Set the player's volume (Lavalink expects a value between 0 and 1000)
-            await player.SetVolumeAsync(volume);
-
-            await ReplyAsync(embed: Utilities.StatusEmbed($"🔊 Volume set to {volume}%"));
+            await ReplyAsync(embed: Utilities.StatusEmbed($"🔊 Volume set to {volumePercent}%."));
         }
+
     }
 }
