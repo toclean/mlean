@@ -1,10 +1,12 @@
 using System.Text;
 using Discord;
+using Lavalink4NET;
+using Lavalink4NET.Events.Players;
 using Lavalink4NET.Tracks;
 
 namespace mlean;
 
-public class Utilities
+public static class Utilities
 {
     public static Embed ErrorEmbed(string message) =>
         new EmbedBuilder().WithTitle("Error").WithDescription(message).WithColor(Color.Red).WithCurrentTimestamp()
@@ -17,8 +19,8 @@ public class Utilities
     {
         var embed = new EmbedBuilder()
             .WithTitle($"{action}: {track.Title}")
-            .WithUrl(track.Uri.ToString())
-            .AddField("🎤 Author", track.Author ?? "Unknown", true)
+            .WithUrl(track.Uri?.ToString())
+            .AddField("🎤 Author", track.Author, true)
             .AddField("⏱️ Duration", track.Duration.ToString(@"hh\:mm\:ss"), true)
             .AddField("📡 Source", track.SourceName ?? "Unknown", true)
             .WithColor(Color.Blue)

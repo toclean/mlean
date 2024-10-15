@@ -10,3 +10,4 @@ mlean.sln.DotSettings.user
 **/logs/**
 **.log
 **/plugins/*.jar
+**/application.yml

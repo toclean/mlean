@@ -4,6 +4,7 @@ using Discord.Commands;
 using Lavalink4NET;
 using Discord.WebSocket;
 using Lavalink4NET.DiscordNet;
+using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players;
 using Lavalink4NET.Players.Queued;
 using Lavalink4NET.Tracks;
@@ -13,12 +14,12 @@ namespace mlean.Commands
     public abstract class CommandBase : ModuleBase<SocketCommandContext>
     {
         protected static readonly string Prefix = Environment.GetEnvironmentVariable("BOT_PREFIX") ?? "!";
-        protected readonly IAudioService _audioService;
-        protected readonly DiscordSocketClient _discordClient;
+        protected readonly IAudioService AudioService;
+        private readonly DiscordSocketClient _discordClient;
 
         protected CommandBase(IAudioService audioService, DiscordSocketClient discordClient)
         {
-            _audioService = audioService;
+            AudioService = audioService;
             _discordClient = discordClient;
         }
 
@@ -27,7 +28,7 @@ namespace mlean.Commands
             var options = new PlayerRetrieveOptions(
                 ChannelBehavior: join ? PlayerChannelBehavior.Join : PlayerChannelBehavior.None);
 
-            var result = await _audioService.Players.RetrieveAsync(Context, PlayerFactory.Queued, options);
+            var result = await AudioService.Players.RetrieveAsync(Context, PlayerFactory.Queued, options);
             if (result.IsSuccess) return result.Player;
 
             await ReplyAsync(embed: Utilities.ErrorEmbed(result.Status switch
@@ -47,7 +48,7 @@ namespace mlean.Commands
         }
 
         [Command("show-filters", RunMode = RunMode.Async)]
-        public async Task ShowFiltersAsync()
+        protected async Task ShowFiltersAsync()
         {
             var player = await GetPlayerAsync();
             if (player == null)
@@ -92,19 +93,22 @@ namespace mlean.Commands
                 .WithCurrentTimestamp();
 
             // Build a vertical representation with a fixed spacing for each EQ band
-            string[] bars = new string[8];
+            int numBands = eq.Length;
+            string[] bars = new string[8]; // 8 levels of vertical bars
+
             for (int i = 0; i < bars.Length; i++) bars[i] = "";
 
             // Generate the vertical representation for each band
-            for (int i = 0; i < eq.Length; i++)
+            for (int i = 0; i < numBands; i++)
             {
                 int levels = (int)((eq[i] + 0.25f) * 8); // Map gain to slider (0-8)
+
                 for (int j = 0; j < 8; j++)
                 {
                     if (j < 8 - levels)
-                        bars[j] += "⬛  ";  // Add empty block with consistent spacing
+                        bars[j] += "⬛ ";  // Add empty block with consistent spacing
                     else
-                        bars[j] += "🟩  ";  // Add filled block with consistent spacing
+                        bars[j] += "🟩 ";  // Add filled block with consistent spacing
                 }
             }
 
@@ -112,12 +116,13 @@ namespace mlean.Commands
             StringBuilder eqRepresentation = new StringBuilder();
             foreach (string bar in bars)
             {
-                eqRepresentation.AppendLine(bar.TrimEnd());
+                eqRepresentation.AppendLine(bar.PadRight(numBands * 3)); // Add padding for alignment
             }
 
-            embed.AddField("EQ", $"```{eqRepresentation.ToString()}```");
+            embed.AddField("EQ", $"```{eqRepresentation}```");
 
             await ReplyAsync(embed: embed.Build());
         }
+
     }
 }
