@@ -1,3 +1,4 @@
+using System.Text;
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
@@ -75,7 +76,7 @@ namespace mlean.Commands
         }
         
         [Command("show-eq", RunMode = RunMode.Async)]
-        public async Task ShowEqualizerAsync()
+        protected async Task ShowEqualizerAsync()
         {
             var player = await GetPlayerAsync();
             if (player == null || player.Filters.Equalizer == null)
@@ -85,12 +86,36 @@ namespace mlean.Commands
             }
 
             var eq = player.Filters.Equalizer.Equalizer.ToArray();
-            var embed = new EmbedBuilder().WithTitle("🎛️ Equalizer Settings").WithColor(Color.Blue).WithCurrentTimestamp();
+            var embed = new EmbedBuilder()
+                .WithTitle("🎛️ Equalizer Settings")
+                .WithColor(Color.Blue)
+                .WithCurrentTimestamp();
 
+            // Build a vertical representation with a fixed spacing for each EQ band
+            string[] bars = new string[8];
+            for (int i = 0; i < bars.Length; i++) bars[i] = "";
+
+            // Generate the vertical representation for each band
             for (int i = 0; i < eq.Length; i++)
             {
-                embed.AddField($"Band {i}", Utilities.CreateEmojiSlider(eq[i]), inline: true);
+                int levels = (int)((eq[i] + 0.25f) * 8); // Map gain to slider (0-8)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (j < 8 - levels)
+                        bars[j] += "⬛  ";  // Add empty block with consistent spacing
+                    else
+                        bars[j] += "🟩  ";  // Add filled block with consistent spacing
+                }
             }
+
+            // Create the vertical EQ representation as a string
+            StringBuilder eqRepresentation = new StringBuilder();
+            foreach (string bar in bars)
+            {
+                eqRepresentation.AppendLine(bar.TrimEnd());
+            }
+
+            embed.AddField("EQ", $"```{eqRepresentation.ToString()}```");
 
             await ReplyAsync(embed: embed.Build());
         }
