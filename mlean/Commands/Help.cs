@@ -5,8 +5,8 @@ using Discord.WebSocket;
 
 namespace mlean.Commands
 {
-    public class Help(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Help(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("help", RunMode = RunMode.Async)]
         public async Task HelpAsync()

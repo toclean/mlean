@@ -6,8 +6,8 @@ using Lavalink4NET.Filters;
 
 namespace mlean.Commands
 {
-    public class ScrewIt(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class ScrewIt(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("screw-it", RunMode = RunMode.Async)]
         public async Task ScrewItAsync()

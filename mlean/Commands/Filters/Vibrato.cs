@@ -6,8 +6,8 @@ using Lavalink4NET.Filters;
 
 namespace mlean.Commands
 {
-    public class Vibrato(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Vibrato(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("vibrato", RunMode = RunMode.Async)]
         public async Task VibratoAsync(float? frequency = null, float? depth = null)

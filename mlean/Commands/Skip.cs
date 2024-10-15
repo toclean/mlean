@@ -1,12 +1,12 @@
-using Discord;
 using Discord.Commands;
-using Lavalink4NET;
 using Discord.WebSocket;
+using Lavalink4NET;
+using mlean.Audio;
 
 namespace mlean.Commands
 {
     public class Skip(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+        : CommandBase(audioService)
     {
         [Command("skip", RunMode = RunMode.Async)]
         public async Task SkipAsync()
@@ -17,19 +17,8 @@ namespace mlean.Commands
                 await ReplyAsync(embed: Utilities.ErrorEmbed("Player not found."));
                 return;
             }
-
-            if (player.Queue.Count > 0)
-            {
-                await player.SkipAsync();
-                await UpdateBotStatusAsync(player.CurrentTrack);
-                await ReplyAsync(embed: Utilities.StatusEmbed("⏩ Skipped to the next track."));
-            }
-            else
-            {
-                await player.StopAsync();
-                await UpdateBotStatusAsync();
-                await ReplyAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
-            }
+            
+            AudioManager.Initialize(AudioService, Context, discordClient);
         }
     }
 }

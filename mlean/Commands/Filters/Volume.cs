@@ -1,13 +1,12 @@
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using Lavalink4NET.Filters;
 
 namespace mlean.Commands.Eq
 {
-    public class Volume(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Volume(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("volume", RunMode = RunMode.Async)]
         public async Task SetVolumeAsync(float volumePercent)

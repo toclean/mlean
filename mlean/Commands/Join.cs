@@ -2,15 +2,14 @@ using Discord;
 using Discord.Commands;
 using Lavalink4NET;
 using Lavalink4NET.Players;
-using Discord.WebSocket;
 using Lavalink4NET.DiscordNet;
 using Lavalink4NET.Extensions;
 using Lavalink4NET.Players.Queued;
 
 namespace mlean.Commands
 {
-    public class Join(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Join(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("join", RunMode = RunMode.Async)]
         public async Task JoinAsync()

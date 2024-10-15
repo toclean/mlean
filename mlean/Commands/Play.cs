@@ -2,15 +2,17 @@ using Discord;
 using Discord.Commands;
 using Lavalink4NET;
 using Discord.WebSocket;
+using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players;
+using Lavalink4NET.Protocol.Payloads.Events;
 using Lavalink4NET.Rest.Entities.Tracks;
+using mlean.Audio;
 
 namespace mlean.Commands
 {
     public class Play(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+        : CommandBase(audioService)
     {
-        
 
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string searchQuery)
@@ -21,7 +23,7 @@ namespace mlean.Commands
                 return;
             }
 
-            var tracks = await _audioService.Tracks.LoadTracksAsync(searchQuery, TrackSearchMode.YouTube);
+            var tracks = await AudioService.Tracks.LoadTracksAsync(searchQuery, TrackSearchMode.YouTube);
             if (!tracks.HasMatches)
             {
                 await ReplyAsync(embed: Utilities.ErrorEmbed($"No results for `{searchQuery}`."));
@@ -30,6 +32,9 @@ namespace mlean.Commands
 
             var track = tracks.Tracks.First(x => !x.IsLiveStream && x.IsSeekable);
             var player = await GetPlayerAsync(true);
+            
+            AudioManager.Initialize(AudioService, Context, discordClient);
+
             if (player == null) return;
 
             if (player.State == PlayerState.Playing)
@@ -40,8 +45,7 @@ namespace mlean.Commands
             else
             {
                 await player.PlayAsync(track);
-                await UpdateBotStatusAsync(track);
-                await ReplyAsync(embed: Utilities.CreateTrackEmbed(track, "Now Playing"));
+                AudioManager.UpdateTrackEvent();
             }
         }
     }
