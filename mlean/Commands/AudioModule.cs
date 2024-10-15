@@ -57,31 +57,34 @@ public class AudioModule : ModuleBase<SocketCommandContext>
     {
         var embed = new EmbedBuilder()
             .WithTitle("📜 **Help & Commands**")
-            .WithDescription($"Use `{Prefix}` as the command prefix.")
+            .WithDescription($"Use `{Prefix}` as the command prefix for all commands.")
             .WithColor(Color.DarkBlue)
             .WithCurrentTimestamp()
             .AddField("🎵 **Music Commands**", 
                 $"`{Prefix}join` - Joins your current voice channel\n" +
                 $"`{Prefix}leave` - Leaves the voice channel\n" +
-                $"`{Prefix}play <query>` - Plays a song\n" +
+                $"`{Prefix}play <query>` - Plays a song or adds to queue\n" +
                 $"`{Prefix}pause` - Pauses the current song\n" +
                 $"`{Prefix}resume` - Resumes the song\n" +
-                $"`{Prefix}stop` - Stops the music\n" +
-                $"`{Prefix}skip` - Skips the song")
+                $"`{Prefix}stop` - Stops the music and clears the queue\n" +
+                $"`{Prefix}skip` - Skips the current track")
             .AddField("🎛️ **Filter Commands**", 
-                $"`{Prefix}show-filters` - Displays current filters\n" +
+                $"`{Prefix}show-filters` - Displays current filter status\n" +
                 $"`{Prefix}screw-it` - Toggles Screw-It mode\n" +
-                $"`{Prefix}timescale <speed> <pitch> <rate>` - Timescale filter\n" +
-                $"`{Prefix}vibrato <frequency> <depth>` - Vibrato filter")
+                $"`{Prefix}timescale <speed> <pitch> <rate>` - Adjusts timescale filter\n" +
+                $"`{Prefix}vibrato <frequency> <depth>` - Applies a vibrato filter")
             .AddField("🎚️ **Equalizer Commands**", 
-                $"`{Prefix}set-eq <band>:<gain>` - Adjusts EQ band\n" +
-                $"`{Prefix}set-eq-all <gain>` - Set all EQ bands\n" +
-                $"`{Prefix}reset-equalizer` - Resets EQ")
+                $"`{Prefix}set-eq <band>:<gain>` - Adjusts the gain of a specific EQ band\n" +
+                $"`{Prefix}set-eq-all <gain>` - Sets all EQ bands to the same gain\n" +
+                $"`{Prefix}show-eq` - Displays the current EQ settings\n" +
+                $"`{Prefix}reset-equalizer` - Resets the equalizer to default")
             .AddField("⚙️ **Utility Commands**", 
-                $"`{Prefix}help` - Shows this help message");
+                $"`{Prefix}help` - Displays this help message\n" +
+                $"`{Prefix}leave` - Makes the bot leave the voice channel");
 
         await ReplyAsync(embed: embed.Build());
     }
+
     
     [Command("skip", RunMode = RunMode.Async)]
     public async Task SkipAsync()
