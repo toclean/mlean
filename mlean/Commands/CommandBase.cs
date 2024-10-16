@@ -8,6 +8,7 @@ using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players;
 using Lavalink4NET.Players.Queued;
 using Lavalink4NET.Tracks;
+using mlean.Audio;
 
 namespace mlean.Commands
 {
@@ -21,6 +22,8 @@ namespace mlean.Commands
         {
             AudioService = audioService;
             _discordClient = discordClient;
+            
+            AudioManager.Initialize(audioService);
         }
 
         protected async ValueTask<QueuedLavalinkPlayer?> GetPlayerAsync(bool join = false)
