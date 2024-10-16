@@ -22,8 +22,6 @@ namespace mlean.Commands
         {
             AudioService = audioService;
             _discordClient = discordClient;
-            
-            AudioManager.Initialize(audioService);
         }
 
         protected async ValueTask<QueuedLavalinkPlayer?> GetPlayerAsync(bool join = false)

@@ -31,6 +31,8 @@ namespace mlean.Commands
 
             var track = tracks.Tracks.First(x => !x.IsLiveStream && x.IsSeekable);
             var player = await GetPlayerAsync(true);
+            
+            AudioManager.Initialize(AudioService, Context);
 
             if (player == null) return;
 
