@@ -1,15 +1,14 @@
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using Lavalink4NET.Events.Players;
 using Lavalink4NET.Protocol.Payloads.Events;
 using mlean.Audio;
 
 namespace mlean.Commands
 {
-    public class Skip(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Skip(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("skip", RunMode = RunMode.Async)]
         public async Task SkipAsync()

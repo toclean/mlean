@@ -5,8 +5,8 @@ using mlean.Audio;
 
 namespace mlean.Commands
 {
-    public class Leave(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Leave(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("leave", RunMode = RunMode.Async)]
         public async Task LeaveAsync()

@@ -6,8 +6,8 @@ using Lavalink4NET.Filters;
 
 namespace mlean.Commands.Eq
 {
-    public class SetEq(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class SetEq(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("set-eq", RunMode = RunMode.Async)]
         public async Task SetEqualizerBandsAsync(params string[] bandGainPairs)

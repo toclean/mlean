@@ -6,8 +6,8 @@ using Lavalink4NET.Filters;
 
 namespace mlean.Commands
 {
-    public class Timescale(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Timescale(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("timescale", RunMode = RunMode.Async)]
         public async Task TimeScaleAsync(float? speed = null, float? pitch = null, float? rate = null)

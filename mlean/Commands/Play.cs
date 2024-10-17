@@ -11,8 +11,9 @@ using mlean.Audio;
 namespace mlean.Commands
 {
     public class Play(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+        : CommandBase(audioService)
     {
+
         [Command("play", RunMode = RunMode.Async)]
         public async Task PlayAsync([Remainder] string searchQuery)
         {

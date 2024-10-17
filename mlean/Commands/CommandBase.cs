@@ -16,12 +16,10 @@ namespace mlean.Commands
     {
         protected static readonly string Prefix = Environment.GetEnvironmentVariable("BOT_PREFIX") ?? "!";
         protected readonly IAudioService AudioService;
-        private readonly DiscordSocketClient _discordClient;
 
-        protected CommandBase(IAudioService audioService, DiscordSocketClient discordClient)
+        protected CommandBase(IAudioService audioService)
         {
             AudioService = audioService;
-            _discordClient = discordClient;
         }
 
         protected async ValueTask<QueuedLavalinkPlayer?> GetPlayerAsync(bool join = false)

@@ -6,8 +6,8 @@ using Lavalink4NET.Filters;
 
 namespace mlean.Commands.Eq
 {
-    public class ResetEq(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class ResetEq(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("reset-eq", RunMode = RunMode.Async)]
         public async Task ResetEqualizerAsync()

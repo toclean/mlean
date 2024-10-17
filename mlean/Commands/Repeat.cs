@@ -5,8 +5,8 @@ using mlean.Audio;
 
 namespace mlean.Commands
 {
-    public class Repeat(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Repeat(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("repeat", RunMode = RunMode.Async)]
         public async Task RepeatAsync()

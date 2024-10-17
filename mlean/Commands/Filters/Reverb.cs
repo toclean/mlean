@@ -1,13 +1,12 @@
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using Lavalink4NET.Filters;
 
 namespace mlean.Commands
 {
-    public class Reverb(IAudioService audioService, DiscordSocketClient discordClient)
-        : CommandBase(audioService, discordClient)
+    public class Reverb(IAudioService audioService)
+        : CommandBase(audioService)
     {
         [Command("reverb", RunMode = RunMode.Async)]
         public async Task ReverbAsync(
