@@ -42,12 +42,6 @@ namespace mlean.Commands
             return null;
         }
 
-        protected async Task UpdateBotStatusAsync(LavalinkTrack? track = null)
-        {
-            await _discordClient.SetGameAsync(track != null ? $"🎵 {track.Title}" : "Ready for commands!",
-                type: track != null ? ActivityType.Playing : ActivityType.Listening);
-        }
-
         [Command("show-filters", RunMode = RunMode.Async)]
         protected async Task ShowFiltersAsync()
         {

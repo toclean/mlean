@@ -32,7 +32,7 @@ namespace mlean.Commands
             var track = tracks.Tracks.First(x => !x.IsLiveStream && x.IsSeekable);
             var player = await GetPlayerAsync(true);
             
-            AudioManager.Initialize(AudioService, Context);
+            AudioManager.Initialize(AudioService, Context, discordClient);
 
             if (player == null) return;
 
@@ -44,7 +44,7 @@ namespace mlean.Commands
             else
             {
                 await player.PlayAsync(track);
-                await UpdateBotStatusAsync(track);
+                await AudioManager.UpdateBotStatusAsync(track);
                 await ReplyAsync(embed: Utilities.CreateTrackEmbed(track, "Now Playing"));
                 AudioManager.UpdateTrackEvent();
             }

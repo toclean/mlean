@@ -24,14 +24,14 @@ namespace mlean.Commands
             if (player.Queue.Count > 0)
             {
                 await player.SkipAsync();
-                await UpdateBotStatusAsync(player.CurrentTrack);
+                await AudioManager.UpdateBotStatusAsync(player.CurrentTrack);
                 await ReplyAsync(embed: Utilities.StatusEmbed("⏩ Skipped to the next track."));
                 AudioManager.UpdateTrackEvent();
             }
             else
             {
                 await player.StopAsync();
-                await UpdateBotStatusAsync();
+                await AudioManager.UpdateBotStatusAsync();
                 await ReplyAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
             }
         }

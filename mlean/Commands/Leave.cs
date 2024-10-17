@@ -1,6 +1,7 @@
 using Discord.Commands;
 using Lavalink4NET;
 using Discord.WebSocket;
+using mlean.Audio;
 
 namespace mlean.Commands
 {
@@ -13,7 +14,7 @@ namespace mlean.Commands
             var player = await GetPlayerAsync();
             if (player != null) await player.DisconnectAsync();
 
-            await UpdateBotStatusAsync();
+            await AudioManager.UpdateBotStatusAsync();
             await ReplyAsync(embed: Utilities.StatusEmbed("Left the voice channel."));
         }
     }
