@@ -48,6 +48,7 @@ namespace mlean.Audio
 
         private static async Task OnTrackEnded(object sender, TrackEndedEventArgs eventargs)
         {
+            await _context.Channel.SendMessageAsync(eventargs.Reason.ToString());
             if (eventargs.Reason is TrackEndReason.Finished or TrackEndReason.Replaced)
             {
                 var track = eventargs.Player.CurrentTrack;
