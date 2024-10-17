@@ -48,7 +48,7 @@ namespace mlean.Audio
 
         private static async Task OnTrackEnded(object sender, TrackEndedEventArgs eventargs)
         {
-            if (eventargs.Reason == TrackEndReason.Finished)
+            if (eventargs.Reason == TrackEndReason.Finished || eventargs.Reason == TrackEndReason.Replaced)
             {
                 var track = eventargs.Player.CurrentTrack;
                 await UpdateBotStatusAsync(track);
