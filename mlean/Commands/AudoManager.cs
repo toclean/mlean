@@ -18,8 +18,8 @@ namespace mlean.Audio
 
         public static void Initialize(IAudioService audioService, SocketCommandContext context, DiscordSocketClient discordClient)
         {
-            if (audioService == null || context == null) throw new Exception("Failed to pass the correct information");
-            if (_init) return;
+            // if (audioService == null || context == null) throw new Exception("Failed to pass the correct information");
+            // if (_init) return;
             _init = true;
             _context = context;
             _audioService = audioService;
