@@ -1,13 +1,11 @@
-using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using Lavalink4NET;
-using Lavalink4NET.Events.Players;
-using Lavalink4NET.Protocol.Payloads.Events;
 using mlean.Audio;
 
 namespace mlean.Commands
 {
-    public class Skip(IAudioService audioService)
+    public class Skip(IAudioService audioService, DiscordSocketClient discordClient)
         : CommandBase(audioService)
     {
         [Command("skip", RunMode = RunMode.Async)]
@@ -19,6 +17,8 @@ namespace mlean.Commands
                 await ReplyAsync(embed: Utilities.ErrorEmbed("Player not found."));
                 return;
             }
+            
+            AudioManager.Initialize(AudioService, Context, discordClient);
 
             if (player.Queue.Count > 0)
             {
