@@ -22,9 +22,8 @@ namespace mlean.Commands
 
             if (player.Queue.Count > 0)
             {
-                await player.SkipAsync();
-                
                 AudioManager.UpdateTrackEvent();
+                await player.SkipAsync();
                 await AudioManager.UpdateBotStatusAsync(player.CurrentTrack);
                 await ReplyAsync(embed: Utilities.StatusEmbed("⏩ Skipped to the next track."));
             }
