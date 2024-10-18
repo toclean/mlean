@@ -1,8 +1,11 @@
+
 ---
 
 # 🎵 mLean Music Bot 🎵
 
 A powerful and customizable Discord music bot built using **Lavalink** and **Lavalink4NET**, designed to bring seamless music playback, EQ control, and audio filtering to your Discord server.
+
+---
 
 ## 🚀 Features
 
