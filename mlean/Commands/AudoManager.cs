@@ -58,17 +58,17 @@ namespace mlean.Audio
 
         private static async Task OnTrackEnded(object sender, TrackEndedEventArgs eventargs)
         {
+            var track = eventargs.Player.CurrentTrack;
             switch (eventargs.Reason)
             {
                 case TrackEndReason.Finished:
                 {
-                    var track = eventargs.Player.CurrentTrack;
                     await UpdateBotStatusAsync(track);
+                    if (track == null) await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
                     break;
                 }
                 case TrackEndReason.Replaced:
                 {
-                    var track = eventargs.Player.CurrentTrack;
                     await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("⏩ Skipped to the next track."));
                     await UpdateBotStatusAsync(track);
                     break;
@@ -76,8 +76,8 @@ namespace mlean.Audio
                 case TrackEndReason.LoadFailed:
                     break;
                 case TrackEndReason.Stopped:
-                    await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
                     await UpdateBotStatusAsync();
+                    if (track == null) await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
                     break;
                 case TrackEndReason.Cleanup:
                     break;
