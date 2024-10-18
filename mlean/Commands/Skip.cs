@@ -19,6 +19,7 @@ namespace mlean.Commands
             }
             
             AudioManager.Initialize(AudioService, Context, discordClient);
+            await player.SkipAsync();
         }
     }
 }

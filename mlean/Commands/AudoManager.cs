@@ -68,17 +68,15 @@ namespace mlean.Audio
                 case TrackEndReason.Replaced:
                 {
                     var track = eventargs.Player.CurrentTrack;
-                    var embed = track == null
-                        ? Utilities.StatusEmbed("🛑 No more tracks. Stopped playback.")
-                        : Utilities.StatusEmbed("⏩ Skipped to the next track.");
-                
-                    await _context.Channel.SendMessageAsync(embed: embed);
+                    await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("⏩ Skipped to the next track."));
                     await UpdateBotStatusAsync(track);
                     break;
                 }
                 case TrackEndReason.LoadFailed:
                     break;
                 case TrackEndReason.Stopped:
+                    await _context.Channel.SendMessageAsync(embed: Utilities.StatusEmbed("🛑 No more tracks. Stopped playback."));
+                    await UpdateBotStatusAsync();
                     break;
                 case TrackEndReason.Cleanup:
                     break;
