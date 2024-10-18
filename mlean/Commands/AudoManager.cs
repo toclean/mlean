@@ -13,6 +13,7 @@ namespace mlean.Audio
         private static IAudioService _audioService;
         private static SocketCommandContext _context;
         private static DiscordSocketClient _discordClient;
+        public static bool _volume = false;
         private static bool _isRepeat = false;
         private static bool _init = false;
 
