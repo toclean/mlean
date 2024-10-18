@@ -1,4 +1,3 @@
-**/Constants.cs
 **/node_modules
 mlean/bin
 mlean/obj
@@ -9,5 +8,4 @@ mlean.sln.DotSettings.user
 **/log/**
 **/logs/**
 **.log
-**/plugins/*.jar
-**/application.yml
+**/Constants.cs

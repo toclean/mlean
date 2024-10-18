@@ -12,10 +12,13 @@ services:
       - SERVER_PORT=2333            # Lavalink server port
       - SERVER_ADDRESS=lavalink     # Lavalink server address
       - LAVALINK_SERVER_PASSWORD=youshallnotpass  # Server password
-    volumes:
-      - ./Lavalink/application.yml:/opt/Lavalink/application.yml:ro  # Mount config
     networks:
       - lavalink-network
+    volumes:
+      # mount application.yml from the same directory or use environment variables
+      - ./application.yml:/opt/Lavalink/application.yml
+      # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
+      - ./plugins/:/opt/Lavalink/plugins/
     expose:
       - 2333  # Document exposed port
     ports:
