@@ -27,6 +27,14 @@ namespace mlean.Audio
             _discordClient = discordClient;
             _audioService.TrackStarted += OnTrackStarted;
             _audioService.TrackEnded += OnTrackEnded;
+            discordClient.UserIsTyping += OnUserIsTyping;
+        }
+
+        private static async Task OnUserIsTyping(Cacheable<IUser, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2)
+        {
+            var randomNumber = new Random().Next(0, 100);
+            if (randomNumber / 5 != 0) return;
+            await _context.Channel.SendMessageAsync($"Ummm... any day now {arg1.Value.Username}");
         }
 
         public static bool GetRepeat()
