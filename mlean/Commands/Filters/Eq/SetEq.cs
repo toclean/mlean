@@ -2,7 +2,7 @@ using Discord.Commands;
 using Lavalink4NET;
 using Lavalink4NET.Filters;
 
-namespace mlean.Commands.Eq
+namespace mlean.Commands.Filters.Eq
 {
     public class SetEq(IAudioService audioService)
         : CommandBase(audioService)

@@ -3,7 +3,6 @@ using Lavalink4NET;
 using Discord.WebSocket;
 using Lavalink4NET.Players;
 using Lavalink4NET.Rest.Entities.Tracks;
-using mlean.Audio;
 
 namespace mlean.Commands
 {

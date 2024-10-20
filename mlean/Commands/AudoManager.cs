@@ -6,7 +6,7 @@ using Lavalink4NET.Events.Players;
 using Lavalink4NET.Protocol.Payloads.Events;
 using Lavalink4NET.Tracks;
 
-namespace mlean.Audio
+namespace mlean.Commands
 {
     public static class AudioManager
     {

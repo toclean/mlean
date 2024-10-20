@@ -1,6 +1,8 @@
 ﻿using Lavalink4NET.Players;
 using Lavalink4NET.Tracks;
 
+namespace mlean;
+
 public class TrackQueueItem : ITrackQueueItem
 {
     public TrackReference Reference { get; }

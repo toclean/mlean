@@ -1,7 +1,7 @@
 using Discord.Commands;
 using Lavalink4NET;
 
-namespace mlean.Commands.Eq
+namespace mlean.Commands.Filters
 {
     public class Volume(IAudioService audioService)
         : CommandBase(audioService)

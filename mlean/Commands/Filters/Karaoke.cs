@@ -2,7 +2,7 @@ using Discord.Commands;
 using Lavalink4NET;
 using Lavalink4NET.Filters;
 
-namespace mlean.Commands
+namespace mlean.Commands.Filters
 {
     public class Karaoke(IAudioService audioService)
         : CommandBase(audioService)
