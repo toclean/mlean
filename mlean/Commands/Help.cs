@@ -1,7 +1,6 @@
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 
 namespace mlean.Commands
 {

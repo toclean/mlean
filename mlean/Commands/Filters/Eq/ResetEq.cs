@@ -1,7 +1,5 @@
-using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using Lavalink4NET.Filters;
 
 namespace mlean.Commands.Eq

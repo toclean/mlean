@@ -2,13 +2,9 @@ using System.Text;
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using Lavalink4NET.DiscordNet;
-using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players;
 using Lavalink4NET.Players.Queued;
-using Lavalink4NET.Tracks;
-using mlean.Audio;
 
 namespace mlean.Commands
 {

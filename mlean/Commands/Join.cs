@@ -1,10 +1,6 @@
 using Discord;
 using Discord.Commands;
 using Lavalink4NET;
-using Lavalink4NET.Players;
-using Lavalink4NET.DiscordNet;
-using Lavalink4NET.Extensions;
-using Lavalink4NET.Players.Queued;
 
 namespace mlean.Commands
 {

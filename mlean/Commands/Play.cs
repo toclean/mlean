@@ -1,10 +1,7 @@
-using Discord;
 using Discord.Commands;
 using Lavalink4NET;
 using Discord.WebSocket;
-using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players;
-using Lavalink4NET.Protocol.Payloads.Events;
 using Lavalink4NET.Rest.Entities.Tracks;
 using mlean.Audio;
 

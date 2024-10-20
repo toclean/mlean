@@ -1,7 +1,5 @@
 using System.Text;
 using Discord;
-using Lavalink4NET;
-using Lavalink4NET.Events.Players;
 using Lavalink4NET.Players.Queued;
 using Lavalink4NET.Tracks;
 

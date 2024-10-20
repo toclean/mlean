@@ -1,6 +1,5 @@
 using Discord.Commands;
 using Lavalink4NET;
-using Discord.WebSocket;
 using mlean.Audio;
 
 namespace mlean.Commands

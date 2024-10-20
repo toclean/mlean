@@ -1,4 +1,3 @@
-using Discord;
 using Discord.Commands;
 using Lavalink4NET;
 using Lavalink4NET.Filters;

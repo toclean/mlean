@@ -2,7 +2,6 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Lavalink4NET;
-using Lavalink4NET.Events.Players;
 using Lavalink4NET.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
