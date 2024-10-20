@@ -46,10 +46,10 @@ namespace mlean.Commands
             {
                 await player.PlayAsync(track);
 
-                if (!AudioManager._volume)
+                if (!AudioManager.Volume)
                 {
                     await player.SetVolumeAsync(0.1f);
-                    AudioManager._volume = true;
+                    AudioManager.Volume = true;
                 }
                 
                 AudioManager.UpdateTrackEvent();

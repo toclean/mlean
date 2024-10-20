@@ -9,3 +9,4 @@ mlean.sln.DotSettings.user
 **/logs/**
 **.log
 **/Constants.cs
+mlean/Constants.cs

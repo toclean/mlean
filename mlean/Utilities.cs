@@ -2,6 +2,7 @@ using System.Text;
 using Discord;
 using Lavalink4NET;
 using Lavalink4NET.Events.Players;
+using Lavalink4NET.Players.Queued;
 using Lavalink4NET.Tracks;
 
 namespace mlean;
@@ -39,5 +40,22 @@ public static class Utilities
         for (int i = sliderLevel; i < 8; i++) sb.Append("⬛");
 
         return sb.ToString();
+    }
+
+    public static Embed CreateQueueList(ITrackQueue queue)
+    {
+        var embed = new EmbedBuilder()
+            .WithTitle("🎸 Song Queue 🎷")
+            .WithColor(Color.Purple)
+            .WithCurrentTimestamp();
+        
+        foreach (var queueItem in queue)
+        {
+            var track = queueItem.Track;
+            if (track == null) continue;
+            embed.AddField(track.Title, track.Author);
+        }
+
+        return embed.Build();
     }
 }
