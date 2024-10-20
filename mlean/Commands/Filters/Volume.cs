@@ -11,9 +11,9 @@ namespace mlean.Commands.Eq
         [Command("volume", RunMode = RunMode.Async)]
         public async Task SetVolumeAsync(float volumePercent)
         {
-            if (volumePercent < 0 || volumePercent > 100)
+            if (volumePercent < 0 || volumePercent > 150)
             {
-                await ReplyAsync(embed: Utilities.ErrorEmbed("Please provide a volume level between 0 and 100."));
+                await ReplyAsync(embed: Utilities.ErrorEmbed("Please provide a volume level between 0 and 150."));
                 return;
             }
 
