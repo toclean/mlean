@@ -54,7 +54,8 @@ namespace mlean.Commands
                 .AddField("🔊 Low-Pass Filter", filters.LowPass != null ? "ON ✅" : "OFF ❌", true)
                 .AddField("🔄 Rotation", filters.Rotation != null ? "ON ✅" : "OFF ❌", true)
                 .AddField("⏩ Timescale", filters.Timescale != null ? "ON ✅" : "OFF ❌", true)
-                .AddField("🌊 Vibrato", filters.Vibrato != null ? "ON ✅" : "OFF ❌", true);
+                .AddField("🌊 Vibrato", filters.Vibrato != null ? "ON ✅" : "OFF ❌", true)
+                .AddField("🎤 Karaoke", filters.Karaoke != null ? "ON ✅" : "OFF ❌", true);
 
             var eq = filters.Equalizer?.Equalizer.ToArray() ?? new float[15];
             for (int i = 0; i < eq.Length; i++)
