@@ -4,7 +4,7 @@ using Lavalink4NET;
 
 namespace mlean.Commands
 {
-    public class Remove(IAudioService audioService, DiscordSocketClient discordClient)
+    public class Remove(IAudioService audioService)
         : CommandBase(audioService)
     {
         [Command("Remove", RunMode = RunMode.Async)]

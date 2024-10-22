@@ -45,17 +45,5 @@ namespace mlean.Commands
             }
             return "Unable to fetch";
         }
-
-        // Function to fetch Escape from Tarkov player count (modify based on available API or data source)
-        private async Task<string> GetTarkovPlayerCountAsync()
-        {
-            // Since Tarkov doesn't have a Steam listing, you'll need an appropriate API or source
-            // Replace this with actual implementation based on the source.
-            // Example: string tarkovUrl = "https://api-for-tarkov-playercount.com";
-            // var response = await client.GetStringAsync(tarkovUrl);
-        
-            // For now, using a mock value
-            return "583,000"; // Mock data, replace with real implementation
-        }
     }
 }
