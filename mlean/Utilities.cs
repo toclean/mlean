@@ -56,4 +56,17 @@ public static class Utilities
 
         return embed.Build();
     }
+    
+    public static Embed CreatePlaylistEmbed(int trackCount, string message)
+    {
+        var embed = new EmbedBuilder()
+            .WithTitle("Playlist Added")
+            .WithDescription($"{trackCount} tracks added to the queue.")
+            .WithFooter(message)
+            .WithColor(Color.Green)
+            .Build();
+
+        return embed;
+    }
+
 }

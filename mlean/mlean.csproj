@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="Discord.Net" Version="3.16.0" />
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
       <PackageReference Include="Lavalink4NET.Abstractions" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Discord.NET" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.InactivityTracking" Version="4.0.26-preview.4" />
