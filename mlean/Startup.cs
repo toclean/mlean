@@ -41,7 +41,7 @@ public class Program
                     .AddSingleton<CommandService>()
                     .AddSingleton<CommandHandler>() // Add this line
                     .AddLogging(logging =>
-                        logging.AddConsole().SetMinimumLevel(LogLevel.Trace));
+                        logging.AddConsole().SetMinimumLevel(LogLevel.Error));
 
             })
             .Build();
