@@ -14,6 +14,7 @@ public static class Utilities
     public static Embed StatusEmbed(string message) =>
         new EmbedBuilder().WithTitle("Status").WithDescription(message).WithColor(Color.Gold).WithCurrentTimestamp()
             .Build();
+
     public static Embed CreateTrackEmbed(LavalinkTrack track, string action)
     {
         var embed = new EmbedBuilder()
@@ -40,44 +41,60 @@ public static class Utilities
         return sb.ToString();
     }
 
-    public static List<Embed> CreateQueueList(ITrackQueue queue)
+    public static Embed CreateQueueList(ITrackQueue queue)
     {
-        const int maxFieldsPerPage = 10;
+        var embed = new EmbedBuilder()
+            .WithTitle("🎸 Song Queue 🎷")
+            .WithColor(Color.Purple)
+            .WithCurrentTimestamp();
+        
+        foreach (var queueItem in queue)
+        {
+            var track = queueItem.Track;
+            if (track == null) continue;
+            embed.AddField(track.Title, track.Author);
+        }
+
+        return embed.Build();
+    }
+
+    public static List<Embed> CreateQueueListPaginated(ITrackQueue queue)
+    {
         var embeds = new List<Embed>();
         var embedBuilder = new EmbedBuilder()
             .WithTitle("🎸 Song Queue 🎷")
             .WithColor(Color.Purple)
             .WithCurrentTimestamp();
 
-        int fieldCount = 0;
-
+        int count = 0;
         foreach (var queueItem in queue)
         {
             var track = queueItem.Track;
             if (track == null) continue;
 
-            embedBuilder.AddField(track.Title, track.Author);
-            fieldCount++;
+            embedBuilder.AddField($"{count + 1}. {track.Title}", track.Author);
+            count++;
 
-            if (fieldCount >= maxFieldsPerPage)
+            // When there are 10 fields in the current embed, create the embed and start a new one
+            if (count % 10 == 0)
             {
                 embeds.Add(embedBuilder.Build());
                 embedBuilder = new EmbedBuilder()
-                    .WithTitle("🎸 Song Queue 🎷 (Continued)")
+                    .WithTitle("🎸 Song Queue 🎷 (continued)")
                     .WithColor(Color.Purple)
                     .WithCurrentTimestamp();
-                fieldCount = 0;
             }
         }
 
-        if (fieldCount > 0)
+        // Add any remaining fields that weren't enough to make a full embed of 10
+        if (count % 10 != 0)
         {
             embeds.Add(embedBuilder.Build());
         }
 
         return embeds;
     }
-    
+
     public static Embed CreatePlaylistEmbed(int trackCount, string message)
     {
         var embed = new EmbedBuilder()
@@ -89,5 +106,4 @@ public static class Utilities
 
         return embed;
     }
-
 }
