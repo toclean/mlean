@@ -30,7 +30,7 @@ namespace mlean.Commands
             // Check if the search query is a YouTube playlist URL
             bool isPlaylist = Regex.IsMatch(searchQuery, @"(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/.*(?:list=)([a-zA-Z0-9_-]+)");
 
-            var trackSearchMode = isPlaylist ? TrackSearchMode.YouTube : TrackSearchMode.YouTube; // Use YouTube search mode in both cases
+            var trackSearchMode = TrackSearchMode.YouTube; // Use YouTube search mode in both cases
             var tracks = await AudioService.Tracks.LoadTracksAsync(searchQuery, trackSearchMode);
 
             if (!tracks.HasMatches)
