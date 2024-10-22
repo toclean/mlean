@@ -37,9 +37,9 @@ public class Program
                 });
 
                 services
-                    .AddSingleton<AudioService>()
+                    .AddTransient<IAudioService, AudioService>()
                     .AddSingleton<CommandService>()
-                    .AddSingleton<CommandHandler>() // Add this line
+                    .AddSingleton<CommandHandler>()
                     .AddLogging(logging =>
                         logging.AddConsole().SetMinimumLevel(LogLevel.Error));
 
