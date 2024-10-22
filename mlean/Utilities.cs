@@ -40,21 +40,42 @@ public static class Utilities
         return sb.ToString();
     }
 
-    public static Embed CreateQueueList(ITrackQueue queue)
+    public static List<Embed> CreateQueueList(ITrackQueue queue)
     {
-        var embed = new EmbedBuilder()
+        const int maxFieldsPerPage = 10;
+        var embeds = new List<Embed>();
+        var embedBuilder = new EmbedBuilder()
             .WithTitle("🎸 Song Queue 🎷")
             .WithColor(Color.Purple)
             .WithCurrentTimestamp();
-        
+
+        int fieldCount = 0;
+
         foreach (var queueItem in queue)
         {
             var track = queueItem.Track;
             if (track == null) continue;
-            embed.AddField(track.Title, track.Author);
+
+            embedBuilder.AddField(track.Title, track.Author);
+            fieldCount++;
+
+            if (fieldCount >= maxFieldsPerPage)
+            {
+                embeds.Add(embedBuilder.Build());
+                embedBuilder = new EmbedBuilder()
+                    .WithTitle("🎸 Song Queue 🎷 (Continued)")
+                    .WithColor(Color.Purple)
+                    .WithCurrentTimestamp();
+                fieldCount = 0;
+            }
         }
 
-        return embed.Build();
+        if (fieldCount > 0)
+        {
+            embeds.Add(embedBuilder.Build());
+        }
+
+        return embeds;
     }
     
     public static Embed CreatePlaylistEmbed(int trackCount, string message)
