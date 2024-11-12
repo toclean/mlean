@@ -20,11 +20,13 @@ namespace mlean.Commands
         public static void Initialize(IAudioService audioService, SocketCommandContext context, DiscordSocketClient discordClient)
         {
             if (audioService == null || context == null) throw new Exception("Failed to pass the correct information");
-            if (_init) return;
-            _init = true;
+            if (!_init)
+            {
+                _init = true;
+                _audioService = audioService;
+                _discordClient = discordClient;
+            }
             _context = context;
-            _audioService = audioService;
-            _discordClient = discordClient;
             _audioService.TrackStarted += OnTrackStarted;
             _audioService.TrackEnded += OnTrackEnded;
             discordClient.UserIsTyping += OnUserIsTyping;
