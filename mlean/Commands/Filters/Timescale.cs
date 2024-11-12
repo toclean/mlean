@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters
     public class Timescale(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("timescale", RunMode = RunMode.Async)]
+        [Command("timescale", RunMode = RunMode.Async, Summary = "Applies teh timescale filter")]
         public async Task TimeScaleAsync(float? speed = null, float? pitch = null, float? rate = null)
         {
             var player = await GetPlayerAsync();

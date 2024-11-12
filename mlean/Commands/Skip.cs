@@ -7,7 +7,7 @@ namespace mlean.Commands
     public class Skip(IAudioService audioService, DiscordSocketClient discordClient)
         : CommandBase(audioService)
     {
-        [Command("skip", RunMode = RunMode.Async)]
+        [Command("skip", RunMode = RunMode.Async, Summary = "Skips the current song if one is playing")]
         public async Task SkipAsync()
         {
             var player = await GetPlayerAsync();

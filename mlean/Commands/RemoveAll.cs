@@ -7,7 +7,7 @@ namespace mlean.Commands
     public class RemoveAll(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("RemoveAll", RunMode = RunMode.Async)]
+        [Command("Remove-All", RunMode = RunMode.Async, Summary = "Removes all songs from queue")]
         public async Task RemoveAllAsync()
         {
             

@@ -18,7 +18,7 @@ namespace mlean.Commands
 
         public Queue(IAudioService audioService) : base(audioService) { }
 
-        [Command("queue", RunMode = RunMode.Async)]
+        [Command("queue", RunMode = RunMode.Async, Summary = "Shows the current song queue")]
         public async Task QueueAsync()
         {
             var player = await GetPlayerAsync();

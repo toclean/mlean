@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters
     public class Karaoke(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("karaoke", RunMode = RunMode.Async)]
+        [Command("karaoke", RunMode = RunMode.Async, Summary = "Applies the karaoke filter")]
         public async Task KaraokeAsync(int? level, int? monoLevel, int? filterBand, int? filterWidth)
         {
             var player = await GetPlayerAsync();

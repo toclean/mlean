@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters.Eq
     public class ResetEq(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("reset-eq", RunMode = RunMode.Async)]
+        [Command("reset-eq", RunMode = RunMode.Async, Summary = "Resets the eq settings")]
         public async Task ResetEqualizerAsync()
         {
             var player = await GetPlayerAsync();

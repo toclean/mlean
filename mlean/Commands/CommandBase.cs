@@ -36,7 +36,7 @@ namespace mlean.Commands
             return null;
         }
 
-        [Command("show-filters", RunMode = RunMode.Async)]
+        [Command("show-filters", RunMode = RunMode.Async, Summary = "Shows the current filter settings")]
         protected async Task ShowFiltersAsync()
         {
             var player = await GetPlayerAsync();
@@ -66,7 +66,7 @@ namespace mlean.Commands
             await ReplyAsync(embed: embed.Build());
         }
         
-        [Command("show-eq", RunMode = RunMode.Async)]
+        [Command("show-eq", RunMode = RunMode.Async, Summary = "Shows the current equalizer settings")]
         protected async Task ShowEqualizerAsync()
         {
             var player = await GetPlayerAsync();

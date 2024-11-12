@@ -7,7 +7,7 @@ namespace mlean.Commands
     public class Help(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("help", RunMode = RunMode.Async)]
+        [Command("help", RunMode = RunMode.Async, Summary = "Shows the help menu")]
         public async Task HelpAsync()
         {
             var embed = new EmbedBuilder()
@@ -15,28 +15,38 @@ namespace mlean.Commands
                 .WithDescription($"Use `{Prefix}` as the command prefix for all commands.")
                 .WithColor(Color.DarkBlue)
                 .WithCurrentTimestamp()
+
+                // Music Commands Section
                 .AddField("🎵 **Music Commands**",
                     $"`{Prefix}join` - Joins your current voice channel\n" +
                     $"`{Prefix}leave` - Leaves the voice channel\n" +
-                    $"`{Prefix}play <query>` - Plays a song or adds to queue\n" +
-                    $"`{Prefix}pause` - Pauses the current song\n" +
-                    $"`{Prefix}resume` - Resumes the song\n" +
-                    $"`{Prefix}stop` - Stops the music and clears the queue\n" +
-                    $"`{Prefix}skip` - Skips the current track\n" +
+                    $"`{Prefix}play <song/playlist>` - Plays a song or playlist from YouTube\n" +
+                    $"`{Prefix}queue` - Shows the current song queue\n" +
+                    $"`{Prefix}remove <index>` - Removes a song from the queue by index\n" +
+                    $"`{Prefix}remove-all` - Removes all songs from the queue\n" +
+                    $"`{Prefix}repeat` - Toggles repeat mode on/off\n" +
+                    $"`{Prefix}skip` - Skips the current song\n" +
                     $"`{Prefix}volume <level>` - Sets the volume (0-100%)")
+
+                // Filter Commands Section
                 .AddField("🎛️ **Filter Commands**",
-                    $"`{Prefix}show-filters` - Displays current filter status\n" +
-                    $"`{Prefix}screw-it` - Toggles Screw-It mode\n" +
-                    $"`{Prefix}timescale <speed> <pitch> <rate>` - Adjusts timescale filter\n" +
-                    $"`{Prefix}vibrato <frequency> <depth>` - Applies or disables vibrato filter")
+                    $"`{Prefix}show-filters` - Shows the current filter settings\n" +
+                    $"`{Prefix}karaoke` - Applies the karaoke filter\n" +
+                    $"`{Prefix}reverb` - Applies the reverb filter\n" +
+                    $"`{Prefix}screw-it` - Applies the Screw-It (Houston Mode) filter\n" +
+                    $"`{Prefix}timescale <speed> <pitch> <rate>` - Applies the timescale filter\n" +
+                    $"`{Prefix}vibrato <frequency> <depth>` - Applies the vibrato filter")
+
+                // Equalizer Commands Section
                 .AddField("🎚️ **Equalizer Commands**",
-                    $"`{Prefix}set-eq <band>:<gain>` - Adjusts the gain of a specific EQ band\n" +
-                    $"`{Prefix}set-eq-all <gain>` - Sets all EQ bands to the same gain\n" +
-                    $"`{Prefix}show-eq` - Displays the current EQ settings\n" +
-                    $"`{Prefix}reset-equalizer` - Resets the equalizer to default")
+                    $"`{Prefix}show-eq` - Displays the current equalizer settings\n" +
+                    $"`{Prefix}set-eq <band>:<gain>` - Adjusts the EQ band gain\n" +
+                    $"`{Prefix}reset-eq` - Resets all EQ settings to default")
+
+                // Utility Commands Section
                 .AddField("⚙️ **Utility Commands**",
                     $"`{Prefix}help` - Displays this help message\n" +
-                    $"`{Prefix}leave` - Makes the bot leave the voice channel");
+                    $"`{Prefix}player-counts` - Retrieves player count for Dark and Darker");
 
             await ReplyAsync(embed: embed.Build());
         }

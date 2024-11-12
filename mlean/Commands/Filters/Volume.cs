@@ -6,7 +6,7 @@ namespace mlean.Commands.Filters
     public class Volume(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("volume", RunMode = RunMode.Async)]
+        [Command("volume", RunMode = RunMode.Async, Summary = "Sets the bot volume")]
         public async Task SetVolumeAsync(float volumePercent)
         {
             if (volumePercent < 0 || volumePercent > 150)

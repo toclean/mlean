@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters
     public class Reverb(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("reverb", RunMode = RunMode.Async)]
+        [Command("reverb", RunMode = RunMode.Async, Summary = "Applies the reverb filter")]
         public async Task ReverbAsync(
             float? level = null,
             float? monoLevel = null,

@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters
     public class ScrewIt(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("screw-it", RunMode = RunMode.Async)]
+        [Command("screw-it", RunMode = RunMode.Async, Summary = "Applies the screw-it (Houston Mode) filter")]
         public async Task ScrewItAsync()
         {
             var player = await GetPlayerAsync();

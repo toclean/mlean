@@ -10,7 +10,7 @@ namespace mlean.Commands
     {
         private static readonly HttpClient client = new HttpClient();
         
-        [Command("playercounts")]
+        [Command("player-counts", Summary = "Gets the player count of Dark and Darker")]
         public async Task GetPlayerCountsAsync()
         {
             string darkAndDarkerPlayers = await GetDarkAndDarkerPlayerCountAsync();

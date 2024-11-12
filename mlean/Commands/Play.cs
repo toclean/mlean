@@ -18,7 +18,7 @@ namespace mlean.Commands
             _discordClient = discordClient;
         }
 
-        [Command("play", RunMode = RunMode.Async)]
+        [Command("play", RunMode = RunMode.Async, Summary = "Plays a song/playlist from youtube")]
         public async Task PlayAsync([Remainder] string searchQuery)
         {
             if (string.IsNullOrWhiteSpace(searchQuery))

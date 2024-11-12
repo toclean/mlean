@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters
     public class Vibrato(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("vibrato", RunMode = RunMode.Async)]
+        [Command("vibrato", RunMode = RunMode.Async, Summary = "Applies the vibrato filter")]
         public async Task VibratoAsync(float? frequency = null, float? depth = null)
         {
             var player = await GetPlayerAsync();

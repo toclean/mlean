@@ -7,7 +7,7 @@ namespace mlean.Commands
     public class Join(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("join", RunMode = RunMode.Async)]
+        [Command("join", RunMode = RunMode.Async, Summary = "Makes the bot join the current voice channel")]
         public async Task JoinAsync()
         {
             await GetPlayerAsync(true);

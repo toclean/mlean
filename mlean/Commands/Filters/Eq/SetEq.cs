@@ -7,7 +7,7 @@ namespace mlean.Commands.Filters.Eq
     public class SetEq(IAudioService audioService)
         : CommandBase(audioService)
     {
-        [Command("set-eq", RunMode = RunMode.Async)]
+        [Command("set-eq", RunMode = RunMode.Async, Summary = "Adjusts the eq settings")]
         public async Task SetEqualizerBandsAsync(params string[] bandGainPairs)
         {
             var player = await GetPlayerAsync();

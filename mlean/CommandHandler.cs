@@ -26,6 +26,14 @@ public class CommandHandler
         await _commandService.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
     }
 
+    public void PrintCommands()
+    {
+        foreach (var commandServiceCommand in _commandService.Commands.DistinctBy(x => x.Name))
+        {
+            Console.WriteLine(commandServiceCommand.Name + " : " + commandServiceCommand.Summary);
+        }
+    }
+
     private async Task HandleCommandAsync(SocketMessage socketMessage)
     {
         // Ensure message is a user message and not from a bot
