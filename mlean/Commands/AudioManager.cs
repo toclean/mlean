@@ -10,26 +10,23 @@ namespace mlean.Commands
 {
     public static class AudioManager
     {
-        private static IAudioService _audioService;
         private static SocketCommandContext _context;
         private static DiscordSocketClient _discordClient;
         private static bool _isRepeat = false;
-        private static bool _init = false;
         public static bool Volume = false;
+
+        private static Dictionary<string, IAudioService> _audioServices = new Dictionary<string, IAudioService>();
 
         public static void Initialize(IAudioService audioService, SocketCommandContext context, DiscordSocketClient discordClient)
         {
             if (audioService == null || context == null) throw new Exception("Failed to pass the correct information");
-            if (!_init)
-            {
-                _init = true;
-                _audioService = audioService;
-                _discordClient = discordClient;
-            }
-            _context = context;
-            _audioService.TrackStarted += OnTrackStarted;
-            _audioService.TrackEnded += OnTrackEnded;
+            
+            audioService.TrackStarted += OnTrackStarted;
+            audioService.TrackEnded += OnTrackEnded;
+            _audioServices.Add(context.Guild.Id.ToString(), audioService);
             discordClient.UserIsTyping += OnUserIsTyping;
+            _discordClient = discordClient;
+            _context = context;
         }
 
         private static async Task OnUserIsTyping(Cacheable<IUser, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2)
@@ -51,13 +48,14 @@ namespace mlean.Commands
 
         public static void UpdateTrackEvent()
         {
+            var audioService = _audioServices[_context.Guild.Id.ToString()];
             // Unsubscribe previous handlers to prevent duplicate events
-            _audioService.TrackEnded -= OnTrackEnded;
-            _audioService.TrackStarted -= OnTrackStarted;
+            audioService.TrackEnded -= OnTrackEnded;
+            audioService.TrackStarted -= OnTrackStarted;
 
             // Re-subscribe the handler for the current player
-            _audioService.TrackEnded += OnTrackEnded;
-            _audioService.TrackStarted += OnTrackStarted;
+            audioService.TrackEnded += OnTrackEnded;
+            audioService.TrackStarted += OnTrackStarted;
         }
 
         private static async Task OnTrackStarted(object sender, TrackStartedEventArgs eventargs)
