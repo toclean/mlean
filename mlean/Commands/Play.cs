@@ -27,7 +27,61 @@ namespace mlean.Commands
                 return;
             }
 
-            // Check if the search query is a YouTube playlist URL
+            // Declare the player variable once at the beginning
+            var player = await GetPlayerAsync(true);
+            AudioManager.Initialize(AudioService, Context, _discordClient);
+
+            if (player == null) return;
+
+            // Check if the search query is a Spotify link
+            bool isSpotifyLink = Regex.IsMatch(searchQuery, @"(?:https?:\/\/)?(?:open\.)?spotify\.com\/(track|playlist)\/([a-zA-Z0-9]+)");
+
+            if (isSpotifyLink)
+            {
+                // Extract song name and artist from the Spotify link
+                var spotifyTrack = await SpotifyHelper.GetTrackDetailsAsync(searchQuery);
+                if (spotifyTrack == null)
+                {
+                    await ReplyAsync(embed: Utilities.ErrorEmbed("Failed to fetch Spotify track details."));
+                    return;
+                }
+
+                // Create a YouTube search query using the track name and artist
+                string youtubeSearchQuery = $"{spotifyTrack.Name} {spotifyTrack.Artist}";
+
+                // Search for the track on YouTube
+                var trackResults = await AudioService.Tracks.LoadTracksAsync(youtubeSearchQuery, TrackSearchMode.YouTube);
+                if (!trackResults.HasMatches)
+                {
+                    await ReplyAsync(embed: Utilities.ErrorEmbed($"No results for Spotify track `{spotifyTrack.Name}`."));
+                    return;
+                }
+
+                // Get the first matching track
+                var track = trackResults.Tracks.First(x => !x.IsLiveStream && x.IsSeekable);
+
+                if (player.State == PlayerState.Playing)
+                {
+                    await player.Queue.AddAsync(new TrackQueueItem(track));
+                    await ReplyAsync(embed: Utilities.CreateTrackEmbed(track, "Added to Queue"));
+                }
+                else
+                {
+                    await player.PlayAsync(track);
+
+                    if (!AudioManager.Volume)
+                    {
+                        await player.SetVolumeAsync(0.1f);
+                        AudioManager.Volume = true;
+                    }
+
+                    AudioManager.UpdateTrackEvent();
+                }
+
+                return;
+            }
+
+            // Existing logic for YouTube links
             bool isPlaylist = Regex.IsMatch(searchQuery, @"(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/.*(?:list=)([a-zA-Z0-9_-]+)");
 
             var trackSearchMode = TrackSearchMode.YouTube; // Use YouTube search mode in both cases
@@ -38,11 +92,6 @@ namespace mlean.Commands
                 await ReplyAsync(embed: Utilities.ErrorEmbed($"No results for `{searchQuery}`."));
                 return;
             }
-
-            var player = await GetPlayerAsync(true);
-            AudioManager.Initialize(AudioService, Context, _discordClient);
-
-            if (player == null) return;
 
             // If it's a YouTube playlist URL, handle it as a playlist
             if (isPlaylist && tracks.Tracks.Length > 1)

@@ -9,16 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Discord.Net" Version="3.16.0" />
-      <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
+      <PackageReference Include="Discord.Net" Version="3.17.1" />
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
+      <PackageReference Include="Lavalink4NET" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Abstractions" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Discord.NET" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.InactivityTracking" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Integrations.SponsorBlock" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Protocol" Version="4.0.26-preview.4" />
       <PackageReference Include="Lavalink4NET.Rest" Version="4.0.26-preview.4" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0-rc.2.24473.5" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2" />
+      <PackageReference Include="SpotifyAPI.Web" Version="7.2.1" />
       <PackageReference Include="Victoria" Version="7.0.5" />
     </ItemGroup>
 
